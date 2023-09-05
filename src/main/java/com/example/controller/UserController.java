@@ -32,9 +32,10 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@Valid User user,BindingResult result,Model m,RedirectAttributes redirectAttrs)
 	{
+		System.out.println("login"+user);
 		if(result.hasErrors())
 		{
-			return "form";
+			return "login";
 		}
 		User b=userService.checkUser(user);
 		System.out.println("save "+b);
