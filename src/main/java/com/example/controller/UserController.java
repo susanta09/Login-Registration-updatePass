@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.entity.User;
+import com.example.entity.UserLogin;
 import com.example.service.UserService;
 
 import jakarta.validation.Valid;
@@ -23,23 +24,23 @@ public class UserController {
 	public String showLogin( Model model)
 	{
 		
-		User u=new User();
-		//userService.saveUser(u);
-		model.addAttribute("user",u);
+		UserLogin u=new UserLogin();
+		model.addAttribute("userLogin",u);
 		System.out.println(u);
 		return "login";
 	}
 	@PostMapping("/login")
-	public String login(@Valid User user,BindingResult result,Model m,RedirectAttributes redirectAttrs)
+	public String login(@Valid UserLogin userLogin,BindingResult result,Model m,RedirectAttributes redirectAttrs)
 	{
-		System.out.println("login"+user);
+		
 		if(result.hasErrors())
 		{
 			return "login";
 		}
-		User b=userService.checkUser(user);
+		System.out.println("login"+userLogin);
+		User b=userService.checkUser(userLogin);
 		System.out.println("save "+b);
-		
+
 		if(b!=null)
 		{
 			m.addAttribute("user", b);
@@ -81,15 +82,19 @@ public class UserController {
 	@GetMapping("/updatePasswordForm")
 	public String updatePasswordForm( Model model)
 	{
-		User u=new User();
-		model.addAttribute("user",u);
+		UserLogin u=new UserLogin();
+		model.addAttribute("userLogin",u);
 		System.out.println(u);
-		return "updatePassword";
+		return "updatePasswordForm";
 	}
 	@PostMapping("/updatePassword")
-	public String updatePassword(@Valid User user,BindingResult result,Model m,RedirectAttributes redirectAttrs)
+	public String updatePassword(@Valid UserLogin userLogin,BindingResult result,Model m,RedirectAttributes redirectAttrs)
 	{
-		Boolean b=userService.updatePass(user);
+		if(result.hasErrors())
+		{
+			return "updatePasswordForm";
+		}
+		Boolean b=userService.updatePass(userLogin);
 		if(b)
 		{
 			redirectAttrs.addFlashAttribute("msg", "Your password is updated successfuly");
