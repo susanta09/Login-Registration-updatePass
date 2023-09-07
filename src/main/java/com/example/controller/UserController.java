@@ -60,7 +60,7 @@ public class UserController {
 		return "regis";
 	}
 	@PostMapping("/userSave")
-	public String getUiData(@Valid User user,BindingResult result,Model m,RedirectAttributes redirectAttrs)
+	public String getUiData(@Valid User user,BindingResult result,Model m,RedirectAttributes redirectAttrs)throws Exception
 	{
 		if(result.hasErrors())
 		{
