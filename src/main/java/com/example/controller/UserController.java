@@ -100,7 +100,7 @@ public class UserController {
 			redirectAttrs.addFlashAttribute("msg", "Your password is updated successfuly");
 			return "redirect:/";
 		}else {
-			redirectAttrs.addFlashAttribute("msg", "Please Sign Up");
+			redirectAttrs.addFlashAttribute("msg", "Please Sign Up or Enter your correct Email and Password");
 			return "redirect:/";
 		}
 	}
